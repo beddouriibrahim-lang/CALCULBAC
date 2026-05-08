@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Calcul National BAC</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: rgba(0,0,0,0.5);
+            padding: 30px;
+            border-radius: 15px;
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background: #1abc9c;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #16a085;
+        }
+
+        #result {
+            margin-top: 15px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Calculer la note du National</h1>
+
+    <input type="number" id="regional" placeholder="Note Régional /20">
+    <input type="number" id="control" placeholder="Note Contrôle /20">
+
+    <button onclick="calculer()">Calculer</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+function calculer() {
+    const regional = parseFloat(document.getElementById("regional").value);
+    const control = parseFloat(document.getElementById("control").value);
+
+    if (isNaN(regional) || isNaN(control)) {
+        document.getElementById("result").innerHTML = "❌ Entrez toutes les notes";
+        return;
+    }
+
+    const objectif = 10; // معدل النجاح
+    const national = (objectif - (regional * 0.25 + control * 0.25)) / 0.5;
+
+    if (national > 20) {
+        document.getElementById("result").innerHTML =
+            "❌ حتى إلى جبت 20 ما تكفيش للنجاح";
+    } else if (national < 0) {
+        document.getElementById("result").innerHTML =
+            "✅ نجحت دابا بلا الوطني!";
+    } else {
+        document.getElementById("result").innerHTML =
+            "✅ خاصك تجيب <b>" + national.toFixed(2) +
+            "/20</b> فـ National";
+    }
+}
+</script>
+
+</body>
+</html>
